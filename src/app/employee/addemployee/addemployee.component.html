@@ -5,8 +5,8 @@
 	<div class="row">
 		<div class="col-12">
 			<form class="form-employee" [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
-				<h1 class="h3 mb-3 font-weight-normal text-center"> Employee</h1>
-
+				<h1 class="h3 mb-3 font-weight-normal text-center">Add Employee</h1>
+				<p>Silahkan isi data dibawah ini!</p>
 				<div class="row">
 					<div class="align-self-center col-md-4 col-12 d-flex mb-3">
 						Phone Number
@@ -63,50 +63,15 @@
 					</div>
 				</div>
 
-				<button routerLink="/employee" class="btn btn-success btn-block" type="submit">
-					<i class="fas fa-sign-in-alt"></i> Save Employee
-				</button>
-			</form>
-		</div>
-		<hr>
-		<div class="col-12">
-			<div class="p-3">
-				<h1 class="h3 mb-3 font-weight-normal text-center">Data Employee</h1>
-
-				<div class="table-responsive">
-					<table class="table">
-						<thead>
-							<th>Phone Number</th>
-							<th>Operator</th>
-							<th>Pulsa</th>
-							<th>Harga</th>
-							<th>Action</th>
-						</thead>
-
-						<tbody>
-							<tr *ngIf="isLoading; else employeeFetch">
-								<td colspan="5" class="text-center"> Loading...</td>
-							</tr>
-
-							<ng-template #employeeFetch>
-								<tr *ngFor="let employee of employees;let i = index;">
-									<td>{{employee.phoneNumber}}</td>
-									<td>{{employee.operator}}</td>
-									<td>{{employee.pulsa}}</td>
-									<td>{{employee.harga}}</td>
-									<td><a class="text-danger cursor-pointer pt-0"
-											(click)="deleteEmployee(employee.id)">Delete</a></td>
-								</tr>
-							</ng-template>
-
-							<tr *ngIf="!isLoading && employees == 0">
-								<td colspan="5" class="text-center">No data</td>
-							</tr>		
-
-						</tbody>
-					</table>
+				<div class="d-flex justify-content-end">
+					<button routerLink="/employee" class="btn btn-secondary mr-2 mt-2">
+						<i class="fas fa-sign-in-alt"></i> Cancel
+					</button>
+					<button routerLink="/addemployee" class="btn btn-primary mt-2" type="submit">
+						<i class="fas fa-sign-in-alt"></i> Save Employee
+					</button>
 				</div>
-			</div>
+			</form>
 		</div>
 	</div>
 </div>

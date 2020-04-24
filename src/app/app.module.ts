@@ -18,7 +18,8 @@ import { RegisterComponent } from 'src/app/register/register.component';
 import { AlertComponent } from 'src/app/master/alert/alert.component';
 
 // Pages
-import { EmployeeComponent } from 'src/app/employee/pages/employee.component';
+import { EmployeeComponent } from 'src/app/employee/employee.component';
+import { AddEmployeeComponent } from 'src/app/employee/addemployee/addemployee.component';
 
 // Routing Module
 import { AppRoutingModule } from 'src/app/app.routing.module';
@@ -33,7 +34,10 @@ import { AppRoutingModule } from 'src/app/app.routing.module';
         AlertComponent,
 
         // Pages
-        EmployeeComponent
+        EmployeeComponent,
+
+        // Modal
+        AddEmployeeComponent
     ],
     imports: [
         BrowserModule,

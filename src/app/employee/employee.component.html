@@ -1,0 +1,58 @@
+<div id="logreg-forms">
+	<p class="mb-0 pt-3 px-3 text-right">
+		Hi {{currentUser.firstName}}! <b class="cursor-pointer" (click)="logout()">(logout)</b>
+	</p>
+	<div class="row">
+		<div class="col-12">
+			<div class="col-12">
+				<button class="btn btn-info"
+				type="button" routerLink="/addemployee">
+					<i class="fas fa-sign-in-alt"></i> Add Employee
+				</button>
+			</div>
+		</div>
+		<hr>
+		<div class="col-12">
+			<div class="p-3">
+				<h1 class="h3 mb-3 font-weight-normal text-center">Data Employee</h1>
+
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<th>Phone Number</th>
+							<th>Operator</th>
+							<th>Pulsa</th>
+							<th>Harga</th>
+							<th>Action</th>
+						</thead>
+
+						<tbody>
+							<tr *ngIf="isLoading; else employeeFetch">
+								<td colspan="5" class="text-center"> Loading...</td>
+							</tr>
+
+							<ng-template #employeeFetch>
+								<tr *ngFor="let employee of employees;let i = index;">
+									<td>{{employee.phoneNumber}}</td>
+									<td>{{employee.operator}}</td>
+									<td>{{employee.pulsa}}</td>
+									<td>{{employee.harga}}</td>
+									<td><a class="text-danger cursor-pointer pt-0"
+											(click)="deleteEmployee(employee.id)">Delete</a></td>
+								</tr>
+							</ng-template>
+
+							<tr *ngIf="!isLoading && employees == 0">
+								<td colspan="5" class="text-center">No data</td>
+							</tr>		
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<p class="text-center">
+	By Zikri Ramdani
+</p>

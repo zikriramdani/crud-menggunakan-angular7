@@ -8,11 +8,11 @@ import { User, Employee, Pulsa, Operator } from 'src/app/models';
 import { AlertService, EmployeeService, PulsaService, OperatorService, AuthenticationService } from 'src/app/services';
 
 @Component({
-    selector: 'app-employee',
-    templateUrl: './employee.component.html',
-    styleUrls: ['./employee.component.css']
+    selector: 'app-add-employee',
+    templateUrl: './addemployee.component.html',
+    styleUrls: ['./addemployee.component.css']
 })
-export class EmployeeComponent implements OnInit {
+export class AddEmployeeComponent implements OnInit {
     employeeForm: FormGroup;
     loading = false;
     submitted = false;
@@ -35,7 +35,7 @@ export class EmployeeComponent implements OnInit {
         private authenticationService: AuthenticationService,
         private EmployeeService: EmployeeService,
         private pulsaService: PulsaService,
-        private operatorService: OperatorService,
+        private operatorService: OperatorService
     ) {
         this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
             this.currentUser = user;
@@ -52,7 +52,6 @@ export class EmployeeComponent implements OnInit {
 
         this.loadAllOperator();
         this.loadAllPulsa();
-        this.loadAllEmployee();
         this.resetForm();
     }
 
@@ -62,14 +61,6 @@ export class EmployeeComponent implements OnInit {
     ngOnDestroy() {
         // unsubscribe to ensure no memory leaks
         this.currentUserSubscription.unsubscribe();
-    }
-
-    private loadAllEmployee() {
-        // this.loading = true;
-        this.EmployeeService.getAll().pipe(first()).subscribe(employees => {
-            this.employees = employees;
-            this.isLoading = false;
-        });
     }
 
     private loadAllOperator() {
@@ -118,13 +109,6 @@ export class EmployeeComponent implements OnInit {
         this.loadAllPulsa();
         const index = this.pulsas.findIndex(x => x.pulsa === this.employeeForm.get('pulsa').value);
         this.hargaModel = this.pulsas[index].harga;
-    }
-
-    deleteEmployee(id: number) {
-        this.EmployeeService.delete(id).pipe(first()).subscribe(() => {
-            this.loadAllEmployee();
-            this.alertService.success('Delete Employee successful', true);
-        });
     }
 
     logout() {
