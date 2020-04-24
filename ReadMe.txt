@@ -1,1 +1,1 @@
-link: https://crud-menggunakan-angular7.netlify.com/
+link: https://employee-management.netlify.com/

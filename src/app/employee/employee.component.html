@@ -23,7 +23,7 @@
 							<th>Operator</th>
 							<th>Pulsa</th>
 							<th>Harga</th>
-							<th>Action</th>
+							<th class="text-center">Action</th>
 						</thead>
 
 						<tbody>
@@ -37,8 +37,13 @@
 									<td>{{employee.operator}}</td>
 									<td>{{employee.pulsa}}</td>
 									<td>{{employee.harga}}</td>
-									<td><a class="text-danger cursor-pointer pt-0"
-											(click)="deleteEmployee(employee.id)">Delete</a></td>
+									<td>
+										<div class="d-flex justify-content-center">
+										<button class="btn btn-warning pt-0 mr-2">Edit</button>
+										<button class="btn btn-danger pt-0"
+											(click)="deleteEmployee(employee.id)">Delete</button>
+										</div>
+									</td>
 								</tr>
 							</ng-template>
 

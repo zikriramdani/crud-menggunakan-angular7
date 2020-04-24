@@ -88,7 +88,6 @@ export class AddEmployeeComponent implements OnInit {
             data => {
                 this.alertService.success('Employee successful', true);
                 this.router.navigate(['/employee']);
-                this.loadAllEmployee();
             },
             error => {
                 this.alertService.error(error);

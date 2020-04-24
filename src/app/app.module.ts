@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import icons from 'glyphicons';
+// import { AngularFontAwesomeModule } from 'angular-font-awesome';
+// import icons from 'glyphicons';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -35,8 +35,6 @@ import { AppRoutingModule } from 'src/app/app.routing.module';
 
         // Pages
         EmployeeComponent,
-
-        // Modal
         AddEmployeeComponent
     ],
     imports: [

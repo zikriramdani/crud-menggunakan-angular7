@@ -1,4 +1,4 @@
-# CRUD Menggunakan Angular7
+# Employee Management
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.9.
 
