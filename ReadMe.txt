@@ -1,1 +1,1 @@
-link: https://employee-management.netlify.com/
+link: https://employee-management.netlify.com
