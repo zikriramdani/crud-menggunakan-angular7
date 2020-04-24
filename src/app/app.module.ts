@@ -18,7 +18,7 @@ import { RegisterComponent } from 'src/app/register/register.component';
 import { AlertComponent } from 'src/app/master/alert/alert.component';
 
 // Pages
-import { TransactionComponent } from 'src/app/transaction/pages/transaction.component';
+import { EmployeeComponent } from 'src/app/employee/pages/employee.component';
 
 // Routing Module
 import { AppRoutingModule } from 'src/app/app.routing.module';
@@ -33,7 +33,7 @@ import { AppRoutingModule } from 'src/app/app.routing.module';
         AlertComponent,
 
         // Pages
-        TransactionComponent
+        EmployeeComponent
     ],
     imports: [
         BrowserModule,

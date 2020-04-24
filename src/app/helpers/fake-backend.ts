@@ -12,8 +12,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         // array in local storage for registered users
         let users: any[] = JSON.parse(localStorage.getItem('users')) || [];
 
-        // array in local storage for registered transactions
-        let transactions: any[] = JSON.parse(localStorage.getItem('transactions')) || [];
+        // array in local storage for registered employees
+        let employees: any[] = JSON.parse(localStorage.getItem('employees')) || [];
 
         // array in local storage for registered pulsas
         let operators: Array<object> = [
@@ -88,44 +88,44 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 return of(new HttpResponse({ status: 200 }));
             }
 
-            // get transactions
-            if (request.url.endsWith('/transactions') && request.method === 'GET') {
-                // check for fake auth token in header and return transactions if valid, this security is implemented server side in a real application
+            // get employees
+            if (request.url.endsWith('/employees') && request.method === 'GET') {
+                // check for fake auth token in header and return employees if valid, this security is implemented server side in a real application
                 if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
-                    return of(new HttpResponse({ status: 200, body: transactions }));
+                    return of(new HttpResponse({ status: 200, body: employees }));
                 } else {
                     // return 401 not authorised if token is null or invalid
                     return throwError({ status: 401, error: { message: 'Unauthorised' } });
                 }
             }
 
-            // register transaction
-            if (request.url.endsWith('/transactions/register') && request.method === 'POST') {
-                // get new transaction object from post body
-                let newTransaction = request.body;
+            // register employees
+            if (request.url.endsWith('/employees/register') && request.method === 'POST') {
+                // get new employees object from post body
+                let newEmployee = request.body;
 
-                // save new transaction
-                newTransaction.id = transactions.length + 1;
-                transactions.push(newTransaction);
-                localStorage.setItem('transactions', JSON.stringify(transactions));
+                // save new employees
+                newEmployee.id = employees.length + 1;
+                employees.push(newEmployee);
+                localStorage.setItem('employees', JSON.stringify(employees));
 
                 // respond 200 OK
                 return of(new HttpResponse({ status: 200 }));
             }
 
-            // delete transaction
-            if (request.url.match(/\/transactions\/\d+$/) && request.method === 'DELETE') {
-                // check for fake auth token in header and return transaction if valid, this security is implemented server side in a real application
+            // delete employees
+            if (request.url.match(/\/employees\/\d+$/) && request.method === 'DELETE') {
+                // check for fake auth token in header and return employees if valid, this security is implemented server side in a real application
                 if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
-                    // find transaction by id in transactions array
+                    // find employees by id in employees array
                     let urlParts = request.url.split('/');
                     let id = parseInt(urlParts[urlParts.length - 1]);
-                    for (let i = 0; i < transactions.length; i++) {
-                        let transaction = transactions[i];
-                        if (transaction.id === id) {
-                            // delete transaction
-                            transactions.splice(i, 1);
-                            localStorage.setItem('transactions', JSON.stringify(transactions));
+                    for (let i = 0; i < employees.length; i++) {
+                        let employee = employees[i];
+                        if (employee.id === id) {
+                            // delete employees
+                            employees.splice(i, 1);
+                            localStorage.setItem('employees', JSON.stringify(employees));
                             break;
                         }
                     }

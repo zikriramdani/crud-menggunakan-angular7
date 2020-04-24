@@ -3,15 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { LoginComponent } from 'src/app/login/login.component';
 import { RegisterComponent } from 'src/app/register/register.component';
-import { TransactionComponent } from 'src/app/transaction/pages/transaction.component';
+import { EmployeeComponent } from 'src/app/employee/pages/employee.component';
 import { AuthGuard } from 'src/app/guards';
 
 const appRoutes: Routes = [
-  { path: 'transaction', component: TransactionComponent, canActivate: [AuthGuard] },
+  { path: 'employee', component: EmployeeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
 
-  { path: '**', redirectTo: '/transaction' }
+  { path: '**', redirectTo: '/employee' }
 ];
 
 @NgModule({

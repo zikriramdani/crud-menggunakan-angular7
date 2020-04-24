@@ -4,22 +4,22 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 
-import { User, Transaction, Pulsa, Operator } from 'src/app/models';
-import { AlertService, TransactionService, PulsaService, OperatorService, AuthenticationService } from 'src/app/services';
+import { User, Employee, Pulsa, Operator } from 'src/app/models';
+import { AlertService, EmployeeService, PulsaService, OperatorService, AuthenticationService } from 'src/app/services';
 
 @Component({
-    selector: 'app-transaction',
-    templateUrl: './transaction.component.html',
-    styleUrls: ['./transaction.component.css']
+    selector: 'app-employee',
+    templateUrl: './employee.component.html',
+    styleUrls: ['./employee.component.css']
 })
-export class TransactionComponent implements OnInit {
-    transactionForm: FormGroup;
+export class EmployeeComponent implements OnInit {
+    employeeForm: FormGroup;
     loading = false;
     submitted = false;
 
     currentUser: User;
     currentUserSubscription: Subscription;
-    transactions: Transaction[] = [];
+    employees: Employee[] = [];
 
     public selectedPulsa = "";
 
@@ -33,7 +33,7 @@ export class TransactionComponent implements OnInit {
         private formBuilder: FormBuilder,
         private alertService: AlertService,
         private authenticationService: AuthenticationService,
-        private transactionService: TransactionService,
+        private EmployeeService: EmployeeService,
         private pulsaService: PulsaService,
         private operatorService: OperatorService,
     ) {
@@ -43,7 +43,7 @@ export class TransactionComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.transactionForm = this.formBuilder.group({
+        this.employeeForm = this.formBuilder.group({
             phoneNumber: ['', Validators.required],
             operator: ['', Validators.required],
             pulsa: ['', Validators.required],
@@ -52,22 +52,22 @@ export class TransactionComponent implements OnInit {
 
         this.loadAllOperator();
         this.loadAllPulsa();
-        this.loadAllTransaction();
+        this.loadAllEmployee();
         this.resetForm();
     }
 
     // convenience getter for easy access to form fields
-    get f() { return this.transactionForm.controls; }
+    get f() { return this.employeeForm.controls; }
 
     ngOnDestroy() {
         // unsubscribe to ensure no memory leaks
         this.currentUserSubscription.unsubscribe();
     }
 
-    private loadAllTransaction() {
+    private loadAllEmployee() {
         // this.loading = true;
-        this.transactionService.getAll().pipe(first()).subscribe(transactions => {
-            this.transactions = transactions;
+        this.EmployeeService.getAll().pipe(first()).subscribe(employees => {
+            this.employees = employees;
             this.isLoading = false;
         });
     }
@@ -88,16 +88,16 @@ export class TransactionComponent implements OnInit {
         this.submitted = true;
 
         // stop here if form is invalid
-        if (this.transactionForm.invalid) {
+        if (this.employeeForm.invalid) {
             return;
         }
 
         this.loading = true;
-        this.transactionService.register(this.transactionForm.value).pipe(first()).subscribe(
+        this.EmployeeService.register(this.employeeForm.value).pipe(first()).subscribe(
             data => {
-                this.alertService.success('Transaction successful', true);
-                this.router.navigate(['/transaksi']);
-                this.loadAllTransaction();
+                this.alertService.success('Employee successful', true);
+                this.router.navigate(['/employee']);
+                this.loadAllEmployee();
             },
             error => {
                 this.alertService.error(error);
@@ -106,7 +106,7 @@ export class TransactionComponent implements OnInit {
     }
 
     resetForm() {
-        this.transactionForm.reset({
+        this.employeeForm.reset({
             'phoneNumber': '',
             'operator': '',
             'pulsa': '',
@@ -116,14 +116,14 @@ export class TransactionComponent implements OnInit {
 
     onChange(event: any) {
         this.loadAllPulsa();
-        const index = this.pulsas.findIndex(x => x.pulsa === this.transactionForm.get('pulsa').value);
+        const index = this.pulsas.findIndex(x => x.pulsa === this.employeeForm.get('pulsa').value);
         this.hargaModel = this.pulsas[index].harga;
     }
 
-    deleteTransaction(id: number) {
-        this.transactionService.delete(id).pipe(first()).subscribe(() => {
-            this.loadAllTransaction();
-            this.alertService.success('Delete Transaction successful', true);
+    deleteEmployee(id: number) {
+        this.EmployeeService.delete(id).pipe(first()).subscribe(() => {
+            this.loadAllEmployee();
+            this.alertService.success('Delete Employee successful', true);
         });
     }
 

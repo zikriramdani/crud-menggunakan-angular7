@@ -1,4 +1,4 @@
-export class Transaction {
+export class Employee {
     id: number;
     phonenumber: string;
     operator: string;
