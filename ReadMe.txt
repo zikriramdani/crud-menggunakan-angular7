@@ -1,1 +1,1 @@
-link: https://zikriramdani.netlify.com/
+link: https://crud-menggunakan-angular7.netlify.com/
