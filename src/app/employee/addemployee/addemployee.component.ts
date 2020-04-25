@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 
@@ -28,6 +28,8 @@ export class AddEmployeeComponent implements OnInit {
     hargaModel: any;
     isLoading = true;
 
+    emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
+
     constructor(
         private router: Router,
         private formBuilder: FormBuilder,
@@ -44,14 +46,15 @@ export class AddEmployeeComponent implements OnInit {
 
     ngOnInit() {
         this.employeeForm = this.formBuilder.group({
-            phoneNumber: ['', Validators.required],
-            operator: ['', Validators.required],
-            pulsa: ['', Validators.required],
-            harga: ['', Validators.required]
+            fullName: ['', Validators.required],
+            birthDate: ['', Validators.required],
+            email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
+            basicSalary: ['', Validators.required],
+            group: ['', Validators.required],
+            operator: ['', Validators.required]
         });
 
         this.loadAllOperator();
-        this.loadAllPulsa();
         this.resetForm();
     }
 
@@ -66,12 +69,6 @@ export class AddEmployeeComponent implements OnInit {
     private loadAllOperator() {
         this.operatorService.getAll().subscribe(operators => {
             this.operators = operators;
-        });
-    }
-
-    private loadAllPulsa() {
-        this.pulsaService.getAll().subscribe(pulsas => {
-            this.pulsas = pulsas;
         });
     }
 
@@ -97,17 +94,13 @@ export class AddEmployeeComponent implements OnInit {
 
     resetForm() {
         this.employeeForm.reset({
-            'phoneNumber': '',
-            'operator': '',
-            'pulsa': '',
-            'harga': ''
+            'fullName':'',
+            'birthDate': '',
+            'email': '',
+            'basicSalary': '',
+            'group': '',
+            'operator': ''
         });
-    }
-
-    onChange(event: any) {
-        this.loadAllPulsa();
-        const index = this.pulsas.findIndex(x => x.pulsa === this.employeeForm.get('pulsa').value);
-        this.hargaModel = this.pulsas[index].harga;
     }
 
     logout() {

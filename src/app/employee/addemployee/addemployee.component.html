@@ -9,13 +9,52 @@
 				<p>Silahkan isi data dibawah ini!</p>
 				<div class="row">
 					<div class="align-self-center col-md-4 col-12 d-flex mb-3">
-						Phone Number
+						FullName
 					</div>
 					<div class="col-md-8 col-12 mb-3">
-						<input type="number" formControlName="phoneNumber" class="form-control" placeholder="Phone Number"
-							required [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }">
-						<div *ngIf="submitted && f.phoneNumber.errors" class="invalid-feedback">
-							<div *ngIf="f.phoneNumber.errors.required">Phone Number is required</div>
+						<input type="text" formControlName="fullName" class="form-control" placeholder="FullName"
+							required [ngClass]="{ 'is-invalid': submitted && f.fullName.errors }">
+						<div *ngIf="submitted && f.fullName.errors" class="invalid-feedback">
+							<div *ngIf="f.fullName.errors.required">FullName is required</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="align-self-center col-md-4 col-12 d-flex mb-3">
+						Birthdate
+					</div>
+					<div class="col-md-8 col-12 mb-3">
+						<!-- <mat-form-field>
+						 
+						  <input matInput [matDatepicker]="picker">
+						  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+						  <mat-datepicker #picker></mat-datepicker>
+						</mat-form-field> -->
+					</div>
+
+				</div>
+				<div class="row">
+					<div class="align-self-center col-md-4 col-12 d-flex mb-3">
+						Email
+					</div>
+					<div class="col-md-8 col-12 mb-3">
+						<input type="email" formControlName="email" class="form-control" placeholder="email@email.com"
+							required [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+						<div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+							<div *ngIf="f.email.errors.required">Email is required</div>
+							<div *ngIf="f.email.errors.pattern">Email not valid.</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="align-self-center col-md-4 col-12 d-flex mb-3">
+						Basic Salary
+					</div>
+					<div class="col-md-8 col-12 mb-3">
+						<input type="number" formControlName="basicSalary" class="form-control" placeholder="1.234.567.89"
+							required [ngClass]="{ 'is-invalid': submitted && f.basicSalary.errors }">
+						<div *ngIf="submitted && f.basicSalary.errors" class="invalid-feedback">
+							<div *ngIf="f.basicSalary.errors.required">Basic Salary is required</div>
 						</div>
 					</div>
 				</div>
@@ -32,34 +71,8 @@
 							</option>
 						</select>
 						<div *ngIf="submitted && f.operator.errors" class="invalid-feedback">
-							<div *ngIf="f.operator.errors.required">Operator is required</div>
+							<div *ngIf="f.operator.errors.required">Operator is required</div> 
 						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="align-self-center col-md-4 col-12 d-flex mb-3">
-						Pulsa
-					</div>
-					<div class="col-md-8 col-12 mb-3">
-						<select class="custom-select" formControlName="pulsa" required value=""
-							[ngClass]="{ 'is-invalid': submitted && f.pulsa.errors }" (change)="onChange($event)"
-							[ngModel]="selectedPulsa">
-							<option value="">Choose Pulsa...</option>
-							<option *ngFor="let pulsa of pulsas" [value]="pulsa.pulsa">
-								{{pulsa.pulsa}}
-							</option>
-						</select>
-						<div *ngIf="submitted && f.pulsa.errors" class="invalid-feedback">
-							<div *ngIf="f.pulsa.errors.required">Pulsa is required</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="align-self-center col-md-4 col-12 d-flex mb-3">
-						Harga
-					</div>
-					<div class="col-md-8 col-12 mb-3">
-						<input formControlName="harga" class="form-control" disabled [ngModel]="hargaModel">
 					</div>
 				</div>
 
@@ -67,9 +80,13 @@
 					<button routerLink="/employee" class="btn btn-secondary mr-2 mt-2">
 						<i class="fas fa-sign-in-alt"></i> Cancel
 					</button>
-					<button routerLink="/addemployee" class="btn btn-primary mt-2" type="submit">
+					<button [disabled]="loading" routerLink="/addemployee" class="btn btn-primary mt-2" type="submit">
 						<i class="fas fa-sign-in-alt"></i> Save Employee
 					</button>
+					<div class="align-self-center" *ngIf="loading">
+						<img
+							src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+					</div>
 				</div>
 			</form>
 		</div>
