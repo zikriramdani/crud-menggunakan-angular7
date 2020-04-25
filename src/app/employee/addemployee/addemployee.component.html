@@ -74,7 +74,7 @@
 					</div>
 					<div class="col-md-8 col-12 mb-3">
 						<mat-form-field class="w-100">
-						    <input matInput formControlName="myGroupControl" [formControl]='myGroup' type="text" placeholder="Choose a group" [matAutocomplete]="auto" [ngClass]="{ 'is-invalid': submitted && f.myGroupControl.errors }" required aria-label="Number">
+						    <input matInput formControlName="myGroupControl" [formControl]='myGroup' type="text" placeholder="Choose a group" [matAutocomplete]="auto" [ngClass]="{ 'is-invalid': submitted && f.myGroupControl.errors }" required>
 						    <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption>
 						      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
 						        {{option}}

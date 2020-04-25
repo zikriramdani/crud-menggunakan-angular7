@@ -25,7 +25,7 @@ export class AddEmployeeComponent implements OnInit {
     isLoading = true;
     emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
 
-    myGroup: FormControl = new FormControl();
+    myGroup = new FormControl();
     options: string[] = [
         'Group 1',
         'Group 2',
@@ -57,36 +57,29 @@ export class AddEmployeeComponent implements OnInit {
         const currentYear = new Date().getFullYear();
         this.minDate = new Date(currentYear - 20, 0, 1);
         this.maxDate = new Date();
-
-        this.registerUserForm = new FormGroup({
-            'fullName': new FormControl(),
-            'birthDate': new FormControl(),
-            'email': new FormControl(),
-            'basicSalary': new FormControl(),
-            'myGroupControl': new FormControl(),
-        });
     }
 
     ngOnInit() {
+        this.employeeForm = this.formBuilder.group({
+            fullName: ['', Validators.required],
+            birthDate: ['', Validators.required],
+            email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
+            basicSalary: ['', Validators.required],
+            myGroupControl: [undefined, [Validators.required]]
+        });
+        this.resetForm();
+
         this.filteredOptions = this.myGroup.valueChanges.pipe(
             startWith(''),
             map(value => this._filter(value))
         );
-
-        this.employeeForm = this.formBuilder.group({
-            fullName: ['', Validators.required],
-            myGroupControl: ['', Validators.required],
-            birthDate: ['', Validators.required],
-            email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
-            basicSalary: ['', Validators.required]
-        });
-        this.resetForm();
     }
 
     private _filter(value: string): string[] {
         const filterValue = value.toLowerCase();
 
-        return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+        return this.options.filter(option => option.toLowerCase().includes(filterValue));
+        console.log('_filter', filterValue)
     }
 
     get f() { return this.employeeForm.controls; }
