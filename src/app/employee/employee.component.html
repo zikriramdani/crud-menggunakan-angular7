@@ -30,25 +30,21 @@
 					    	<td mat-cell *matCellDef="let element; let i = index;"> {{i+1}} </td>
 					  	</ng-container>
 
-					  
 					  	<ng-container matColumnDef="fullName">
 					    	<th mat-header-cell *matHeaderCellDef> FullName </th>
 					    	<td mat-cell *matCellDef="let element"> {{element.fullName}} </td>
 					  	</ng-container>
-
 					  	
 					  	<ng-container matColumnDef="birthDate">
 					    	<th mat-header-cell *matHeaderCellDef> Birthdate </th>
 					    	<td mat-cell *matCellDef="let element"> {{element.birthDate}} </td>
 					  	</ng-container>
 
-					  
 					  	<ng-container matColumnDef="basicSalary">
 					    	<th mat-header-cell *matHeaderCellDef> Basic Salary </th>
 					    	<td mat-cell *matCellDef="let element"> {{element.basicSalary}} </td>
 					  	</ng-container>
 
-					 
 					  	<ng-container matColumnDef="group">
 					    	<th mat-header-cell *matHeaderCellDef> Group </th>
 					    	<td mat-cell *matCellDef="let element"> {{element.group}} </td>
@@ -89,7 +85,7 @@
 					    	No Data
 					    </p>
 					</ng-container>
-					<mat-paginator [pageSizeOptions]="[5, 10, 20]" [pageSize]="[5]" showFirstLastButtons></mat-paginator>
+					<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 				</div>
 
 			</div>

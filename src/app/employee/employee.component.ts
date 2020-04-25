@@ -1,14 +1,12 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 
 import { User, Employee } from 'src/app/models';
 import { AlertService, EmployeeService, AuthenticationService } from 'src/app/services';
-
-import { MatTableDataSource } from '@angular/material';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 
 @Component({
     selector: 'app-employee',
@@ -21,6 +19,7 @@ export class EmployeeComponent implements OnInit {
 
     displayedColumns: string[] = ['id', 'fullName', 'birthDate', 'basicSalary', 'group', 'details', 'update', 'delete'];
     dataSource = new MatTableDataSource<Employee>();
+    @ViewChild(MatPaginator, {}) paginator: MatPaginator;
 
     constructor(
         private router: Router,
@@ -33,13 +32,9 @@ export class EmployeeComponent implements OnInit {
         });
     }
 
-    @ViewChild(
-        MatPaginator, {static: true}
-    ) paginator: MatPaginator;
-
     ngOnInit() {
-        this.loadAllEmployee();
         this.dataSource.paginator = this.paginator;
+        this.loadAllEmployee();
     }
 
     ngOnDestroy() {
@@ -49,14 +44,12 @@ export class EmployeeComponent implements OnInit {
     applyFilter(event: Event) {
         const filterValue = (event.target as HTMLInputElement).value;
         this.dataSource.filter = filterValue.trim().toLowerCase();
-        console.log('key');
     }
 
     private loadAllEmployee() {
         this.EmployeeService.getAll().pipe(first()).subscribe(employees => {
             this.dataSource = new MatTableDataSource(employees);
             this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
         });
     }
 

@@ -7,10 +7,6 @@ import { first, map, startWith } from 'rxjs/operators';
 import { User, Employee } from 'src/app/models';
 import { AlertService, EmployeeService, AuthenticationService } from 'src/app/services';
 
-export interface Group {
-  name: string;
-}
-
 @Component({
     selector: 'app-add-employee',
     templateUrl: './addemployee.component.html',
@@ -29,62 +25,68 @@ export class AddEmployeeComponent implements OnInit {
     isLoading = true;
     emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
 
-    myGroup = new FormControl();
-    options: Group[] = [
-        {name: 'Group 1'},
-        {name: 'Group 2'},
-        {name: 'Group 3'},
-        {name: 'Group 4'},
-        {name: 'Group 5'},
-        {name: 'Group 6'},
-        {name: 'Group 7'},
-        {name: 'Group 8'},
-        {name: 'Group 9'},
-        {name: 'Group 10'}
+    myGroup: FormControl = new FormControl();
+    options: string[] = [
+        'Group 1',
+        'Group 2',
+        'Group 3',
+        'Group 4',
+        'Group 5',
+        'Group 6',
+        'Group 7',
+        'Group 8',
+        'Group 9',
+        'Group 10'
     ];
-    filteredOptions: Observable<Group>;
+    filteredOptions: Observable<string[]>;
+
+    minDate: Date;
+    maxDate: Date;
 
     constructor(
         private router: Router,
         private formBuilder: FormBuilder,
         private alertService: AlertService,
         private authenticationService: AuthenticationService,
-        private EmployeeService: EmployeeService
+        private EmployeeService: EmployeeService,
     ) {
         this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
             this.currentUser = user;
         });
+
+        const currentYear = new Date().getFullYear();
+        this.minDate = new Date(currentYear - 20, 0, 1);
+        this.maxDate = new Date();
+
+        this.registerUserForm = new FormGroup({
+            'fullName': new FormControl(),
+            'birthDate': new FormControl(),
+            'email': new FormControl(),
+            'basicSalary': new FormControl(),
+            'myGroupControl': new FormControl(),
+        });
     }
 
     ngOnInit() {
+        this.filteredOptions = this.myGroup.valueChanges.pipe(
+            startWith(''),
+            map(value => this._filter(value))
+        );
+
         this.employeeForm = this.formBuilder.group({
             fullName: ['', Validators.required],
+            myGroupControl: ['', Validators.required],
             birthDate: ['', Validators.required],
             email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
-            basicSalary: ['', Validators.required],
-            myGroup: null
+            basicSalary: ['', Validators.required]
         });
-
-        this.filteredOption();
         this.resetForm();
     }
 
-    filteredOption(){
-        this.filteredOptions = this.myGroup.valueChanges.pipe(
-            startWith(''),
-            map(value => typeof value === 'string' ? value : value.name),
-            map(name => name ? this._filter(name) : this.options.slice())
-        );
-    }
+    private _filter(value: string): string[] {
+        const filterValue = value.toLowerCase();
 
-    displayFn(group: Group): string {
-        return group && group.name ? group.name : '';
-    }
-
-    private _filter(name: string): Group[] {
-        const filterValue = name.toLowerCase();
-
-        return this.options.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
+        return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
     }
 
     get f() { return this.employeeForm.controls; }
@@ -106,12 +108,10 @@ export class AddEmployeeComponent implements OnInit {
             data => {
                 this.alertService.success('Employee successful', true);
                 this.router.navigate(['/employee']);
-                console.log('successful')
             },
             error => {
                 this.alertService.error(error);
                 this.loading = false;
-                console.log('error')
             });
     }
 
@@ -121,7 +121,7 @@ export class AddEmployeeComponent implements OnInit {
             'birthDate': '',
             'email': '',
             'basicSalary': '',
-            'myGroup': ''
+            'myGroupControl': ''
         });
     }
 
