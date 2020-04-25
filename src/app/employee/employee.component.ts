@@ -8,6 +8,7 @@ import { AlertService, EmployeeService, AuthenticationService } from 'src/app/se
 
 import { MatTableDataSource } from '@angular/material';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
     selector: 'app-employee',
@@ -32,7 +33,9 @@ export class EmployeeComponent implements OnInit {
         });
     }
 
-    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    @ViewChild(
+        MatPaginator, {static: true}
+    ) paginator: MatPaginator;
 
     ngOnInit() {
         this.loadAllEmployee();
@@ -50,7 +53,6 @@ export class EmployeeComponent implements OnInit {
     }
 
     private loadAllEmployee() {
-        // this.loading = true;
         this.EmployeeService.getAll().pipe(first()).subscribe(employees => {
             this.dataSource = new MatTableDataSource(employees);
             this.dataSource.paginator = this.paginator;

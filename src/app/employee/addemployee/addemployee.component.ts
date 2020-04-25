@@ -4,18 +4,19 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { Subscription, Observable } from 'rxjs';
 import { first, map, startWith } from 'rxjs/operators';
 
+import { User, Employee } from 'src/app/models';
+import { AlertService, EmployeeService, AuthenticationService } from 'src/app/services';
+
 export interface Group {
   name: string;
 }
-
-import { User, Employee } from 'src/app/models';
-import { AlertService, EmployeeService, AuthenticationService } from 'src/app/services';
 
 @Component({
     selector: 'app-add-employee',
     templateUrl: './addemployee.component.html',
     styleUrls: ['./addemployee.component.css']
 })
+
 export class AddEmployeeComponent implements OnInit {
     employeeForm: FormGroup;
     loading = false;
@@ -41,7 +42,7 @@ export class AddEmployeeComponent implements OnInit {
         {name: 'Group 9'},
         {name: 'Group 10'}
     ];
-    filteredOptions: Observable<Group[]>;
+    filteredOptions: Observable<Group>;
 
     constructor(
         private router: Router,
@@ -64,11 +65,11 @@ export class AddEmployeeComponent implements OnInit {
             myGroup: null
         });
 
-        this.filteredOptions();
+        this.filteredOption();
         this.resetForm();
     }
 
-    private filteredOptions(){
+    filteredOption(){
         this.filteredOptions = this.myGroup.valueChanges.pipe(
             startWith(''),
             map(value => typeof value === 'string' ? value : value.name),
@@ -105,10 +106,12 @@ export class AddEmployeeComponent implements OnInit {
             data => {
                 this.alertService.success('Employee successful', true);
                 this.router.navigate(['/employee']);
+                console.log('successful')
             },
             error => {
                 this.alertService.error(error);
                 this.loading = false;
+                console.log('error')
             });
     }
 
