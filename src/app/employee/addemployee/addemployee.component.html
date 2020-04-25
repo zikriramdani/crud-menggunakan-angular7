@@ -26,7 +26,7 @@
 					<div class="col-md-8 col-12 mb-3">
 						<mat-form-field class="w-100">
 						  <mat-label>Choose a date</mat-label>
-						  <input matInput [matDatepicker]="dp" [formControl]="date">
+						  <input matInput [matDatepicker]="dp">
 						  <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
 						  <mat-datepicker #dp></mat-datepicker>
 						</mat-form-field>
@@ -65,23 +65,16 @@
 					<div class="col-md-8 col-12 mb-3">
 						<mat-form-field class="w-100">
 						    <mat-label>Assignee</mat-label>
-						    <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+						    <input formControlName='myGroup' placeholder="Choose a group" type="text" matInput [formControl]="myGroup" [matAutocomplete]="auto" required [ngClass]="{ 'is-invalid': submitted && f.myGroup.errors }">
 						    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
 						      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
 						        {{option.name}}
 						      </mat-option>
 						    </mat-autocomplete>
 						  </mat-form-field>
-						<!-- <select class="custom-select" formControlName="operator" required value=""
-							[ngClass]="{ 'is-invalid': submitted && f.operator.errors }">
-							<option value="">Choose Operator...</option>
-							<option *ngFor="let operator of operators" [value]="operator.name">
-								{{operator.name}}
-							</option>
-						</select> -->
-						<!-- <div *ngIf="submitted && f.operator.errors" class="invalid-feedback">
-							<div *ngIf="f.operator.errors.required">Operator is required</div> 
-						</div> -->
+						<div *ngIf="submitted && f.myGroup.errors" class="invalid-feedback">
+							<div *ngIf="f.myGroup.errors.required">Operator is required</div> 
+						</div>
 					</div>
 				</div>
 

@@ -4,12 +4,12 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { Subscription, Observable } from 'rxjs';
 import { first, map, startWith } from 'rxjs/operators';
 
-export interface User {
+export interface Group {
   name: string;
 }
 
-import { User, Employee, Pulsa, Operator } from 'src/app/models';
-import { AlertService, EmployeeService, PulsaService, OperatorService, AuthenticationService } from 'src/app/services';
+import { User, Employee } from 'src/app/models';
+import { AlertService, EmployeeService, AuthenticationService } from 'src/app/services';
 
 @Component({
     selector: 'app-add-employee',
@@ -25,31 +25,23 @@ export class AddEmployeeComponent implements OnInit {
     currentUserSubscription: Subscription;
     employees: Employee[] = [];
 
-    public selectedPulsa = "";
-
-    operators: Operator[] = [];
-    pulsas: Pulsa[] = [];
-    hargaModel: any;
     isLoading = true;
-
     emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
 
-    myControl = new FormControl();
-    options: User[] = [
+    myGroup = new FormControl();
+    options: Group[] = [
         {name: 'Mary'},
         {name: 'Shelley'},
         {name: 'Igor'}
     ];
-    filteredOptions: Observable<User[]>;
+    filteredOptions: Observable<Group[]>;
 
     constructor(
         private router: Router,
         private formBuilder: FormBuilder,
         private alertService: AlertService,
         private authenticationService: AuthenticationService,
-        private EmployeeService: EmployeeService,
-        private pulsaService: PulsaService,
-        private operatorService: OperatorService
+        private EmployeeService: EmployeeService
     ) {
         this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
             this.currentUser = user;
@@ -61,42 +53,36 @@ export class AddEmployeeComponent implements OnInit {
             fullName: ['', Validators.required],
             birthDate: ['', Validators.required],
             email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
-            basicSalary: ['', Validators.required]
+            basicSalary: ['', Validators.required],
+            myGroup: null
         });
 
-        this.loadAllOperator();
+        this.filteredOptions();
         this.resetForm();
-
-        this.filteredOptions = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter(name) : this.options.slice())
-      );
     }
 
-    displayFn(user: User): string {
-        return user && user.name ? user.name : '';
+    private filteredOptions(){
+        this.filteredOptions = this.myGroup.valueChanges.pipe(
+            startWith(''),
+            map(value => typeof value === 'string' ? value : value.name),
+            map(name => name ? this._filter(name) : this.options.slice())
+        );
     }
 
-    private _filter(name: string): User[] {
+    displayFn(group: Group): string {
+        return group && group.name ? group.name : '';
+    }
+
+    private _filter(name: string): Group[] {
         const filterValue = name.toLowerCase();
 
         return this.options.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
     }
 
-    // convenience getter for easy access to form fields
     get f() { return this.employeeForm.controls; }
 
     ngOnDestroy() {
-        // unsubscribe to ensure no memory leaks
         this.currentUserSubscription.unsubscribe();
-    }
-
-    private loadAllOperator() {
-        this.operatorService.getAll().subscribe(operators => {
-            this.operators = operators;
-        });
     }
 
     onSubmit() {
@@ -124,7 +110,8 @@ export class AddEmployeeComponent implements OnInit {
             'fullName':'',
             'birthDate': '',
             'email': '',
-            'basicSalary': ''
+            'basicSalary': '',
+            'myGroup': ''
         });
     }
 
