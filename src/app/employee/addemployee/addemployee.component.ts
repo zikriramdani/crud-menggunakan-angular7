@@ -65,7 +65,7 @@ export class AddEmployeeComponent implements OnInit {
             birthDate: ['', Validators.required],
             email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
             basicSalary: ['', Validators.required],
-            myGroupControl: [undefined, [Validators.required]]
+            myGroupControl: ['', Validators.required]
         });
         this.resetForm();
 
