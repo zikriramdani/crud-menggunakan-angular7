@@ -16,18 +16,33 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         let employees: any[] = JSON.parse(localStorage.getItem('employees')) || [];
 
         // array in local storage for registered pulsas
-        let operators: Array<object> = [
-            { id: '1', name: 'Telkomsel' },
-            { id: '2', name: 'XL' },
-            { id: '3', name: 'Three' },
-        ];
-
-        // array in local storage for registered pulsas
-        let pulsas: Array<object> = [
-            { id: '1', pulsa: '10.000', harga: '11.000' },
-            { id: '2', pulsa: '25.000', harga: '26.000' },
-            { id: '3', pulsa: '50.000', harga: '50.000' },
-        ];
+        // let employees: Array<object> = [
+        //     { id: '1', fullName: 'Telkomsel' },
+        //     { id: '2', fullName: 'zikri' },
+        //     { id: '3', fullName: 'Telkomsel' },
+        //     { id: '4', fullName: 'im3' },
+        //     { id: '5', fullName: 'Telkomsel' },
+        //     { id: '6', fullName: 'im3' },
+        //     { id: '7', fullName: 'Telkomsel' },
+        //     { id: '8', fullName: 'im3' },
+        //     { id: '9', fullName: 'Telkomsel' },
+        //     { id: '10', fullName: 'im3' },
+        //     { id: '11', fullName: 'Telkomsel' },
+        //     { id: '12', fullName: 'im3' },
+        //     { id: '13', fullName: 'Telkomsel' },
+        //     { id: '14', fullName: 'im3' },
+        //     { id: '15', fullName: 'Telkomsel' },
+        //     { id: '16', fullName: 'im3' },
+        //     { id: '17', fullName: 'Telkomsel' },
+        //     { id: '18', fullName: 'im3' },
+        //     { id: '19', fullName: 'Telkomsel' },
+        //     { id: '20', fullName: 'im3' },
+        //     { id: '21', fullName: 'Telkomsel' },
+        //     { id: '22', fullName: 'im3' },
+        //     { id: '23', fullName: 'Telkomsel' },
+        //     { id: '24', fullName: 'im3' },
+        //     { id: '25', fullName: 'Telkomsel' }
+        // ];
 
         // wrap in delayed observable to simulate server api call
         return of(null).pipe(mergeMap(() => {
@@ -132,28 +147,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
                     // respond 200 OK
                     return of(new HttpResponse({ status: 200 }));
-                } else {
-                    // return 401 not authorised if token is null or invalid
-                    return throwError({ status: 401, error: { message: 'Unauthorised' } });
-                }
-            }
-
-            // get pulsa
-            if (request.url.endsWith('/pulsas') && request.method === 'GET') {
-                // check for fake auth token in header and return pulsas if valid, this security is implemented server side in a real application
-                if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
-                    return of(new HttpResponse({ status: 200, body: pulsas }));
-                } else {
-                    // return 401 not authorised if token is null or invalid
-                    return throwError({ status: 401, error: { message: 'Unauthorised' } });
-                }
-            }
-
-            // get operator
-            if (request.url.endsWith('/operators') && request.method === 'GET') {
-                // check for fake auth token in header and return pulsas if valid, this security is implemented server side in a real application
-                if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
-                    return of(new HttpResponse({ status: 200, body: operators }));
                 } else {
                     // return 401 not authorised if token is null or invalid
                     return throwError({ status: 401, error: { message: 'Unauthorised' } });

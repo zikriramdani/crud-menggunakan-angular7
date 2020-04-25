@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatTableModule, MatSortModule, MatPaginatorModule, MatDatepickerModule, MatNativeDateModule, } from '@angular/material';
+import { MatIconModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatTableModule, MatSortModule, MatPaginatorModule, MatDatepickerModule, MatNativeDateModule, } from '@angular/material';
 import 'hammerjs';
 
 // used to create fake backend
@@ -43,13 +43,14 @@ import { AppRoutingModule } from 'src/app/app.routing.module';
         HttpClientModule,
         
         BrowserAnimationsModule,
+        MatIconModule,
         MatAutocompleteModule,
         MatInputModule,
         MatDatepickerModule,
         MatNativeDateModule,
         MatFormFieldModule,
         MatTableModule,
-        MatSortModule,
+        MatSortModule, 
         MatPaginatorModule
     ],
     providers: [
