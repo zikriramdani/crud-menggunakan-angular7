@@ -30,9 +30,16 @@ export class AddEmployeeComponent implements OnInit {
 
     myGroup = new FormControl();
     options: Group[] = [
-        {name: 'Mary'},
-        {name: 'Shelley'},
-        {name: 'Igor'}
+        {name: 'Group 1'},
+        {name: 'Group 2'},
+        {name: 'Group 3'},
+        {name: 'Group 4'},
+        {name: 'Group 5'},
+        {name: 'Group 6'},
+        {name: 'Group 7'},
+        {name: 'Group 8'},
+        {name: 'Group 9'},
+        {name: 'Group 10'}
     ];
     filteredOptions: Observable<Group[]>;
 

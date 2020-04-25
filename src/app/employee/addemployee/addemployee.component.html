@@ -64,7 +64,6 @@
 					</div>
 					<div class="col-md-8 col-12 mb-3">
 						<mat-form-field class="w-100">
-						    <mat-label>Assignee</mat-label>
 						    <input formControlName='myGroup' placeholder="Choose a group" type="text" matInput [formControl]="myGroup" [matAutocomplete]="auto" required [ngClass]="{ 'is-invalid': submitted && f.myGroup.errors }">
 						    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
 						      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
