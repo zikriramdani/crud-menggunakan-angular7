@@ -1,8 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { Subscription, Observable } from 'rxjs';
+import { first, map, startWith } from 'rxjs/operators';
+
+export interface User {
+  name: string;
+}
 
 import { User, Employee, Pulsa, Operator } from 'src/app/models';
 import { AlertService, EmployeeService, PulsaService, OperatorService, AuthenticationService } from 'src/app/services';
@@ -30,6 +34,14 @@ export class AddEmployeeComponent implements OnInit {
 
     emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
 
+    myControl = new FormControl();
+    options: User[] = [
+        {name: 'Mary'},
+        {name: 'Shelley'},
+        {name: 'Igor'}
+    ];
+    filteredOptions: Observable<User[]>;
+
     constructor(
         private router: Router,
         private formBuilder: FormBuilder,
@@ -49,13 +61,28 @@ export class AddEmployeeComponent implements OnInit {
             fullName: ['', Validators.required],
             birthDate: ['', Validators.required],
             email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
-            basicSalary: ['', Validators.required],
-            group: ['', Validators.required],
-            operator: ['', Validators.required]
+            basicSalary: ['', Validators.required]
         });
 
         this.loadAllOperator();
         this.resetForm();
+
+        this.filteredOptions = this.myControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => typeof value === 'string' ? value : value.name),
+        map(name => name ? this._filter(name) : this.options.slice())
+      );
+    }
+
+    displayFn(user: User): string {
+        return user && user.name ? user.name : '';
+    }
+
+    private _filter(name: string): User[] {
+        const filterValue = name.toLowerCase();
+
+        return this.options.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
     }
 
     // convenience getter for easy access to form fields
@@ -97,9 +124,7 @@ export class AddEmployeeComponent implements OnInit {
             'fullName':'',
             'birthDate': '',
             'email': '',
-            'basicSalary': '',
-            'group': '',
-            'operator': ''
+            'basicSalary': ''
         });
     }
 
