@@ -8,5 +8,8 @@ p {
   color: #333333; }
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@import "./assets/sass/styles.scss"

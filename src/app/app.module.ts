@@ -20,6 +20,7 @@ import { FooterComponent } from 'src/app/master/footer/footer.component';
 // Pages
 import { EmployeeComponent } from 'src/app/employee/employee.component';
 import { AddEmployeeComponent } from 'src/app/employee/addemployee/addemployee.component';
+import { DetailsEmployeeComponent } from 'src/app/employee/detailsemployee/detailsemployee.component';
 
 // Routing Module
 import { AppRoutingModule } from 'src/app/app.routing.module';
@@ -34,7 +35,8 @@ import { AppRoutingModule } from 'src/app/app.routing.module';
 
         // Pages
         EmployeeComponent,
-        AddEmployeeComponent
+        AddEmployeeComponent,
+        DetailsEmployeeComponent,
     ],
     imports: [
         BrowserModule,

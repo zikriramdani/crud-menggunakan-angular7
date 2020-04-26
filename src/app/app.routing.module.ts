@@ -7,22 +7,26 @@ import { RegisterComponent } from 'src/app/register/register.component';
 
 import { EmployeeComponent } from 'src/app/employee/employee.component';
 import { AddEmployeeComponent } from 'src/app/employee/addemployee/addemployee.component';
+import { DetailsEmployeeComponent } from 'src/app/employee/detailsemployee/detailsemployee.component';
 
 const appRoutes: Routes = [
-  { path: 'employee', component: EmployeeComponent, canActivate: [AuthGuard] },
-  { path: 'addemployee', component: AddEmployeeComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+    { path: 'employee', component: EmployeeComponent, canActivate: [AuthGuard],},
+    { path: 'employee/add', component: AddEmployeeComponent, canActivate: [AuthGuard] },
+    { path: 'employee/details/:id', component: DetailsEmployeeComponent, canActivate: [AuthGuard] },
+    
+    { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegisterComponent },
 
-  { path: '**', redirectTo: '/employee' }
+    { path: '**', redirectTo: '/employee', pathMatch: 'full' }
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(appRoutes, { useHash: true })
-  ],
-  exports: [
-    RouterModule
-  ]
+    imports: [
+        RouterModule.forChild(appRoutes),
+        RouterModule.forRoot(appRoutes, { useHash: true }),
+    ],
+    exports: [
+        RouterModule
+    ]
 })
 export class AppRoutingModule { }
