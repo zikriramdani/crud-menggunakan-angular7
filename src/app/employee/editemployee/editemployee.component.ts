@@ -26,20 +26,17 @@ export class EditEmployeeComponent implements OnInit {
 
     emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
 
+    selectedGroup: Group[] = [];
     myGroup = new FormControl();
-    options: string[] = [
-        'Group 1',
-        'Group 2',
-        'Group 3',
-        'Group 4',
-        'Group 5',
-        'Group 6',
-        'Group 7',
-        'Group 8',
-        'Group 9',
-        'Group 10'
+    filteredGroup: Observable<Group[]>;
+    arrGroup = [
+        new Group('1', 'Group 1'),
+        new Group('2', 'Group 2'),
+        new Group('3', 'Group 3'),
+        new Group('4', 'Group 4'),
+        new Group('5', 'Group 5'),
+        new Group('6', 'Group 6'),
     ];
-    filteredOptions: Observable<string[]>;
 
     minDate: Date;
     maxDate: Date;
@@ -68,23 +65,35 @@ export class EditEmployeeComponent implements OnInit {
             birthDate: ['', Validators.required],
             email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
             basicSalary: ['', Validators.required],
-            // myGroupControl: ['', Validators.required]
+            group: new FormControl(this.selectedGroup, Validators.required)
         });
         this.resetForm();
 
-        this.filteredOptions = this.myGroup.valueChanges.pipe(
+        this.filteredGroup = this.myGroup.valueChanges.pipe(
             startWith(''),
-            map(value => this._filter(value))
+            map((val) => this.filter(val))
         );
 
         this.getEmployeesId();
     }
 
-    private _filter(value: string): string[] {
-        const filterValue = value.toLowerCase();
+    filter(val: any): Group[] {
+        return this.arrGroup.filter((item: any) => {
+          if (typeof val === 'object') { val = "" };
+          const TempString = item.name;
+          return TempString.toLowerCase().includes(val.toLowerCase());
+        });
+    }
 
-        return this.options.filter(option => option.toLowerCase().includes(filterValue));
-        console.log('_filter', filterValue)
+    AutoCompleteDisplay(item: any): string {
+        if (item == undefined) { return }
+        return item.name;
+    }
+
+    OnGroupSelected(selectedGroup) {
+        console.log('### Trigger');
+        console.log(selectedGroup);
+        console.log(this.selectedGroup);
     }
 
     get f() { return this.employeeForm.controls; }
@@ -115,7 +124,7 @@ export class EditEmployeeComponent implements OnInit {
             'birthDate': '',
             'email': '',
             'basicSalary': '',
-            'myGroupControl': ''
+            'myGroup': ''
         });
     }
 
@@ -136,3 +145,11 @@ export class EditEmployeeComponent implements OnInit {
     }
 
 }
+
+export class Group {
+  constructor(
+    public id: string,
+    public name: string,
+  ) { }
+}
+

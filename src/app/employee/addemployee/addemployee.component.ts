@@ -27,9 +27,12 @@ export class AddEmployeeComponent implements OnInit {
     myGroup = new FormControl();
     filteredGroup: Observable<Group[]>;
     arrGroup = [
-        new Group('1', 'John'),
-        new Group('2', 'William'),
-        new Group('3', 'Elon')
+        new Group('1', 'Group 1'),
+        new Group('2', 'Group 2'),
+        new Group('3', 'Group 3'),
+        new Group('4', 'Group 4'),
+        new Group('5', 'Group 5'),
+        new Group('6', 'Group 6'),
     ];
     
     minDate: Date;
