@@ -23,7 +23,7 @@ export class EmployeeService {
         return this.http.get('/employeesDetails/' + id);
     }
 
-    edit(employee: Employee) {
-        return this.http.put(`/employeesEdit/${employee.id}`, employee);
+    edit(id: number, employee: Employee) {
+        return this.http.put('/employeesEdit/', id, employee);
     }
 }

@@ -110,10 +110,10 @@ export class EditEmployeeComponent implements OnInit {
         }
 
         this.loading = true;
-        this.EmployeeService.edit(this.employeeForm.value).pipe(first()).subscribe(
+        this.EmployeeService.edit(this.employeesId, this.employeeForm.value).pipe(first()).subscribe(
             data => {
                 this.alertService.success('Employee successful', true);
-                this.router.navigate(['/employee']);
+                this.router.navigate(['/employee/details/', this.employeesId]);
             },
             error => {
                 this.alertService.error(error);
