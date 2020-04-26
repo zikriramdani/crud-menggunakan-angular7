@@ -18,4 +18,12 @@ export class EmployeeService {
     delete(id: number) {
         return this.http.delete('/employees/' + id);
     }
+
+    details(id: number) {
+        return this.http.get('/employees/details/' + id);
+    }
+
+    edit(id: number) {
+        return this.http.get('/employees/edit/' + id);
+    }
 }
