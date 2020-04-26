@@ -22,7 +22,7 @@
 					</div>
 					<div class="col-md-8 col-12 mb-3">
 						<mat-form-field class="w-100">
-						    <input matInput [value]="employees.birthDate" readonly>
+						    <input matInput [value]="employees.birthDate | date:'EEEE, d MMMM y'" readonly>
 						</mat-form-field>
 					</div>
 
