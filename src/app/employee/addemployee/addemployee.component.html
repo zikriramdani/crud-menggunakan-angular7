@@ -72,15 +72,15 @@
 					</div>
 					<div class="col-md-8 col-12 mb-3">
 						<mat-form-field class="w-100">
-						    <input matInput [formControl]='myGroup' type="text" placeholder="Choose a group" [matAutocomplete]="auto">
-						    <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption>
-						      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-						        {{option}}
+						    <input matInput [formControl]="employeeForm.get('group')" placeholder="Choose a group" [matAutocomplete]="auto" [ngModel]="selectedGroup">
+						    <mat-autocomplete #auto="matAutocomplete" [displayWith]="AutoCompleteDisplay">
+						      <mat-option *ngFor="let group of filteredGroup | async" (click)="OnGroupSelected(selectedGroup)" [value]="group">
+						        {{group.name}}
 						      </mat-option>
 						    </mat-autocomplete>
 						  </mat-form-field>
-						<!-- <div *ngIf="submitted && f.myGroupControl.errors" class="invalid-feedback">
-							<div *ngIf="f.myGroupControl.errors.required">Group is required</div> 
+						<!-- <div *ngIf="submitted && f.myGroup.errors" class="invalid-feedback">
+							<div *ngIf="f.myGroup.errors.required">Group is required</div> 
 						</div> -->
 					</div>
 				</div>

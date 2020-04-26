@@ -49,6 +49,7 @@ export class EmployeeComponent implements OnInit {
     private loadAllEmployee() {
         this.EmployeeService.getAll().pipe(first()).subscribe(employees => {
             this.dataSource = new MatTableDataSource(employees);
+            console.log('data', employees)
             this.dataSource.paginator = this.paginator;
         });
     }
