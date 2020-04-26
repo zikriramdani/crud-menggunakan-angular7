@@ -54,7 +54,7 @@ export class EmployeeComponent implements OnInit {
 
             if (employees){
                 employees.forEach(emp => {
-                    this.groupName = emp.group.name;
+                    this.groupName = emp;
                 });
             };
             this.dataSource.paginator = this.paginator;

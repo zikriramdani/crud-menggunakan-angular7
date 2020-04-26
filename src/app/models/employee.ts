@@ -1,8 +1,13 @@
 export class Employee {
-    id: number;
-    fullName: string;
+    id: Number;
+    fullName: String;
     birthDate: Date;
-    email: string;
-    basicSalary: string;
-    group: string;
+    email: String;
+    basicSalary: String;
+    group: [
+    	{ 
+    		id: Number;
+    		name: String;
+    	}
+    ];
 }
