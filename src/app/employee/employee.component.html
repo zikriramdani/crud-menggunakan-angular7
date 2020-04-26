@@ -37,12 +37,16 @@
 					  	
 					  	<ng-container matColumnDef="birthDate">
 					    	<th mat-header-cell *matHeaderCellDef> Birthdate </th>
-					    	<td mat-cell *matCellDef="let element"> {{element.birthDate}} </td>
+					    	<td mat-cell *matCellDef="let element">
+					    		{{element.birthDate | date:'EEEE, d MMMM y'}}
+					    	</td>
 					  	</ng-container>
 
 					  	<ng-container matColumnDef="basicSalary">
 					    	<th mat-header-cell *matHeaderCellDef> Basic Salary </th>
-					    	<td mat-cell *matCellDef="let element"> {{element.basicSalary}} </td>
+					    	<td mat-cell *matCellDef="let element">
+					    		{{element.basicSalary | currency:'Rp. ':'code'}}
+					    	</td>
 					  	</ng-container>
 
 					  	<ng-container matColumnDef="group">
