@@ -20,7 +20,22 @@ export class DetailsEmployeeComponent implements OnInit {
 
     currentUser: User;
     currentUserSubscription: Subscription;
-    employees: Employee[] = [];
+    employees: any;
+
+    selectedGroup: Group[] = [];
+    myGroup = new FormControl();
+    filteredGroup: Observable<Group[]>;
+    arrGroup = [
+        new Group('1', 'Group 1'),
+        new Group('2', 'Group 2'),
+        new Group('3', 'Group 3'),
+        new Group('4', 'Group 4'),
+        new Group('5', 'Group 5'),
+        new Group('6', 'Group 6'),
+    ];
+
+    employeesId: number;
+    groupId: number;
 
     constructor(
         private router: Router,
@@ -42,17 +57,41 @@ export class DetailsEmployeeComponent implements OnInit {
             birthDate: [''],
             email: [''],
             basicSalary: [''],
-            group: ['']
+            group: new FormControl(this.selectedGroup)
         });
+
+        this.filteredGroup = this.myGroup.valueChanges.pipe(
+            startWith(''),
+            map((val) => this.filter(val))
+        );
 
         this.getEmployeesId();
     }
 
-    getEmployeesId(id: number) {
+    filter(val: any): Group[] {
+        return this.arrGroup.filter((item: any) => {
+          if (typeof val === 'object') { val = "" };
+          const TempString = item.name;
+          return TempString.toLowerCase().includes(val.toLowerCase());
+        });
+    }
+
+    AutoCompleteDisplay(item: any): string {
+        if (item == undefined) { return }
+        return item.name;
+    }
+
+    OnGroupSelected(selectedGroup) {
+        // console.log('### Trigger');
+        // console.log(selectedGroup);
+        // console.log(this.selectedGroup);
+    }
+
+    getEmployeesId() {
         const id = +this.activedRoute.snapshot.paramMap.get('id');
-        this.EmployeeService.details(id).pipe(first()).subscribe(
-            employees => this.employees = employees
-        );
+        this.EmployeeService.details(id).pipe(first()).subscribe(employees => {
+            this.employees = employees;
+        });
     }
 
     ngOnDestroy() {
@@ -64,4 +103,11 @@ export class DetailsEmployeeComponent implements OnInit {
         this.router.navigate(['/login']);
     }
 
+}
+
+export class Group {
+  constructor(
+    public id: string,
+    public name: string,
+  ) { }
 }

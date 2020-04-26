@@ -84,9 +84,9 @@ export class AddEmployeeComponent implements OnInit {
     }
 
     OnGroupSelected(selectedGroup) {
-        console.log('### Trigger');
-        console.log(selectedGroup);
-        console.log(this.selectedGroup);
+        // console.log('### Trigger');
+        // console.log(selectedGroup);
+        // console.log(this.selectedGroup);
     }
 
     get f() { return this.employeeForm.controls; }

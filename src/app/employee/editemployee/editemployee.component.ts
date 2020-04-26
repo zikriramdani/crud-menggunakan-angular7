@@ -22,7 +22,7 @@ export class EditEmployeeComponent implements OnInit {
 
     currentUser: User;
     currentUserSubscription: Subscription;
-    employees: Employee[] = [];
+    employees: any;
 
     emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
 
@@ -40,6 +40,9 @@ export class EditEmployeeComponent implements OnInit {
 
     minDate: Date;
     maxDate: Date;
+
+    employeesId: number;
+    groupId: number;
 
     constructor(
         private router: Router,
@@ -61,7 +64,7 @@ export class EditEmployeeComponent implements OnInit {
 
     ngOnInit() {
         this.employeeForm = this.formBuilder.group({
-            fullName: [, Validators.required],
+            fullName: ['', Validators.required],
             birthDate: ['', Validators.required],
             email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
             basicSalary: ['', Validators.required],
@@ -91,9 +94,9 @@ export class EditEmployeeComponent implements OnInit {
     }
 
     OnGroupSelected(selectedGroup) {
-        console.log('### Trigger');
-        console.log(selectedGroup);
-        console.log(this.selectedGroup);
+        // console.log('### Trigger');
+        // console.log(selectedGroup);
+        // console.log(this.selectedGroup);
     }
 
     get f() { return this.employeeForm.controls; }
@@ -132,11 +135,11 @@ export class EditEmployeeComponent implements OnInit {
         this.currentUserSubscription.unsubscribe();
     }
 
-    getEmployeesId(id: number) {
+    getEmployeesId() {
         const id = +this.activedRoute.snapshot.paramMap.get('id');
-        this.EmployeeService.details(id).pipe(first()).subscribe(
-            employees => this.employees = employees,
-        );
+        this.EmployeeService.details(id).pipe(first()).subscribe(employees => { 
+            this.employees = employees
+        });
     }
 
     logout() {

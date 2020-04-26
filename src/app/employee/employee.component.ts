@@ -21,6 +21,8 @@ export class EmployeeComponent implements OnInit {
     dataSource = new MatTableDataSource<Employee>();
     @ViewChild(MatPaginator, {}) paginator: MatPaginator;
 
+    groupName: any;
+
     constructor(
         private router: Router,
         private alertService: AlertService,
@@ -49,7 +51,12 @@ export class EmployeeComponent implements OnInit {
     private loadAllEmployee() {
         this.EmployeeService.getAll().pipe(first()).subscribe(employees => {
             this.dataSource = new MatTableDataSource(employees);
-            console.log('data', employees)
+
+            if (employees){
+                employees.forEach(emp => {
+                    this.groupName = emp.group.name;
+                });
+            };
             this.dataSource.paginator = this.paginator;
         });
     }
