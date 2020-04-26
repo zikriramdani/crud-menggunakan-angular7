@@ -20,10 +20,10 @@ export class EmployeeService {
     }
 
     details(id: number) {
-        return this.http.get('/employees/details/' + id);
+        return this.http.get('/employeesDetails/' + id);
     }
 
-    edit(id: number) {
-        return this.http.get('/employees/edit/' + id);
+    edit(employee: Employee) {
+        return this.http.put('/employees/edit/${employee.id}' + employee);
     }
 }

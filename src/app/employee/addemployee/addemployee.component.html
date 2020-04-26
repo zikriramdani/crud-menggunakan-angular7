@@ -74,16 +74,16 @@
 					</div>
 					<div class="col-md-8 col-12 mb-3">
 						<mat-form-field class="w-100">
-						    <input matInput formControlName="myGroupControl" [formControl]='myGroup' type="text" placeholder="Choose a group" [matAutocomplete]="auto" [ngClass]="{ 'is-invalid': submitted && f.myGroupControl.errors }" required>
+						    <input matInput [formControl]='myGroup' type="text" placeholder="Choose a group" [matAutocomplete]="auto">
 						    <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption>
 						      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
 						        {{option}}
 						      </mat-option>
 						    </mat-autocomplete>
 						  </mat-form-field>
-						<div *ngIf="submitted && f.myGroupControl.errors" class="invalid-feedback">
+						<!-- <div *ngIf="submitted && f.myGroupControl.errors" class="invalid-feedback">
 							<div *ngIf="f.myGroupControl.errors.required">Group is required</div> 
-						</div>
+						</div> -->
 					</div>
 				</div>
 

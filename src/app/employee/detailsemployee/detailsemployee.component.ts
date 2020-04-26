@@ -1,11 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { first, map, startWith } from 'rxjs/operators';
 
 import { User, Employee } from 'src/app/models';
 import { AlertService, EmployeeService, AuthenticationService } from 'src/app/services';
+
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-details-employee',
@@ -26,6 +28,8 @@ export class DetailsEmployeeComponent implements OnInit {
         private alertService: AlertService,
         private authenticationService: AuthenticationService,
         private EmployeeService: EmployeeService,
+        private activedRoute: ActivatedRoute,
+        private location: Location
     ) {
         this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
             this.currentUser = user;
@@ -34,12 +38,21 @@ export class DetailsEmployeeComponent implements OnInit {
 
     ngOnInit() {
         this.employeeForm = this.formBuilder.group({
-            fullName: ['', Validators.required],
-            birthDate: ['', Validators.required],
-            email: ['', Validators.required],
-            basicSalary: ['', Validators.required],
-            myGroupControl: ['', Validators.required]
+            fullName: [''],
+            birthDate: [''],
+            email: [''],
+            basicSalary: [''],
+            group: ['']
         });
+
+        this.getEmployeesId();
+    }
+
+    getEmployeesId(id: number) {
+        const id = +this.activedRoute.snapshot.paramMap.get('id');
+        this.EmployeeService.details(id).pipe(first()).subscribe(
+            employees => this.employees = employees
+        );
     }
 
     logout() {
