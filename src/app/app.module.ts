@@ -22,6 +22,7 @@ import { FooterComponent } from 'src/app/master/footer/footer.component';
 import { EmployeeComponent } from 'src/app/employee/employee.component';
 import { AddEmployeeComponent } from 'src/app/employee/addemployee/addemployee.component';
 import { DetailsEmployeeComponent } from 'src/app/employee/detailsemployee/detailsemployee.component';
+import { EditEmployeeComponent } from 'src/app/employee/editemployee/editemployee.component';
 
 // Routing Module
 import { AppRoutingModule } from 'src/app/app.routing.module';
@@ -41,6 +42,7 @@ import { AllowDecimalNumberDirective } from 'src/app/shared/allow-decimal.direct
         EmployeeComponent,
         AddEmployeeComponent,
         DetailsEmployeeComponent,
+        EditEmployeeComponent,
 
         // Number
         AllowDecimalNumberDirective

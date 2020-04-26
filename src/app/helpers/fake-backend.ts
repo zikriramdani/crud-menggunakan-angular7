@@ -172,6 +172,25 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 }
             }
 
+            // edit employees
+            if (request.url.match(/\/employeesEdit\/\d+$/) && request.method === 'PUT') {
+                // check for fake auth token in header and return employee if valid, this security is implemented server side in a real application
+                if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+                    // find employee by id in employees array
+                    let urlParts = request.url.split('/');
+                    let id = parseInt(urlParts[urlParts.length - 1]);
+                    let matchedEmployees = employees.filter(
+                        employee => { return employee.id === id; }
+                    );
+                    let employee = matchedEmployees.length ? matchedEmployees[0] : null;
+
+                    return of(new HttpResponse({ status: 200, body: employee }));
+                } else {
+                    // return 401 not authorised if token is null or invalid
+                    return throwError({ status: 401, error: { message: 'Unauthorised' } });
+                }
+            }
+
             // pass through any requests not handled above
             return next.handle(request);
 

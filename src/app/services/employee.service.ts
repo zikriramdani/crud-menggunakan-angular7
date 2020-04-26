@@ -24,6 +24,6 @@ export class EmployeeService {
     }
 
     // edit(employee: Employee) {
-    //     return this.http.put('/employees/edit/${employee.id}' + employee);
+    //     return this.http.put(`/employeesEdit/${employee.id}`, employee);
     // }
 }

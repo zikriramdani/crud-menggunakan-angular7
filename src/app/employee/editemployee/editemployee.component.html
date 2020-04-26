@@ -1,0 +1,70 @@
+<div id="logreg-forms">
+	<p class="mb-0 pt-3 px-3 text-right">
+		Hi {{currentUser.firstName}}! <b class="cursor-pointer" (click)="logout()">(logout)</b>
+	</p>
+	<div class="row">
+		<div class="col-12">
+			<form class="form-employee" [formGroup]="employeeForm">
+				<h1 class="h3 mb-3 font-weight-normal text-center">Edit Data Employee</h1>
+				<div class="row">
+					<div class="align-self-center col-md-4 col-12 d-flex mb-3">
+						FullName
+					</div>
+					<div class="col-md-8 col-12 mb-3">
+						<mat-form-field class="w-100">
+						    <input matInput [value]="employees.fullName" readonly>
+						</mat-form-field>
+					</div>
+				</div>
+				<div class="row">
+					<div class="align-self-center col-md-4 col-12 d-flex mb-3">
+						Birthdate
+					</div>
+					<div class="col-md-8 col-12 mb-3">
+						<mat-form-field class="w-100">
+						    <input matInput [value]="employees.birthDate | date:'EEEE, d MMMM y'" readonly>
+						</mat-form-field>
+					</div>
+
+				</div>
+				<div class="row">
+					<div class="align-self-center col-md-4 col-12 d-flex mb-3">
+						Email
+					</div>
+					<div class="col-md-8 col-12 mb-3">
+						<mat-form-field class="w-100">
+						    <input matInput [value]="employees.email" readonly>
+						</mat-form-field>
+					</div>
+				</div>
+				<div class="row">
+					<div class="align-self-center col-md-4 col-12 d-flex mb-3">
+						Basic Salary
+					</div>
+					<div class="col-md-8 col-12 mb-3">
+						<mat-form-field class="w-100">
+						    <input matInput [value]="employees.basicSalary | currency:'Rp. ':'symbol':'1.0-0'" readonly>
+						</mat-form-field>
+					</div>
+				</div>
+				<div class="row">
+					<div class="align-self-center col-md-4 col-12 d-flex mb-3">
+						Group
+					</div>
+					<div class="col-md-8 col-12 mb-3">
+						<mat-form-field class="w-100">
+						    <input matInput [value]="employees.group" readonly>
+						</mat-form-field>
+					</div>
+				</div>
+
+				<div class="d-flex justify-content-end">
+					<button routerLink="/employee" class="btn btn-primary">
+						<i class="fas fa-sign-in-alt"></i> Back To Employee
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<app-footer></app-footer>
