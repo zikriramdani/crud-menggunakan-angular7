@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Employee } from 'src/app/models/employee';
+
+const httpOptions = {
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
+};
 
 @Injectable({ providedIn: 'root' })
 export class EmployeeService {
@@ -24,6 +28,7 @@ export class EmployeeService {
     }
 
     edit(id: number, employee: Employee) {
-        return this.http.put('/employeesEdit/', id, employee);
+        const url = '/employeesEdit/' + id;
+        return this.http.put(url, employee, httpOptions);
     }
 }
