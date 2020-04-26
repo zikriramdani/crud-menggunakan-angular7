@@ -60,7 +60,7 @@
 					</div>
 					<div class="col-md-8 col-12 mb-3">
 						<mat-form-field class="w-100">
-							<input matInput type="number" formControlName="basicSalary" placeholder="Enter numbers" required [ngClass]="{ 'is-invalid': submitted && f.basicSalary.errors }" ngKeypress="change($event, money)" type="text" ngModel='money'>
+							<input matInput type="text" formControlName="basicSalary" placeholder="Enter numbers" required [ngClass]="{ 'is-invalid': submitted && f.basicSalary.errors }" appAllowDecimalNumber>
 							<div *ngIf="submitted && f.basicSalary.errors" class="invalid-feedback">
 								<div *ngIf="f.basicSalary.errors.required">Basic Salary is required</div>
 							</div>

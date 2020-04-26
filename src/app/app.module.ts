@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+// import { CurrencyPipe } from '@angular/common';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule, MatTableModule, MatSortModule, MatPaginatorModule, MatDatepickerModule, MatNativeDateModule, } from '@angular/material';
@@ -25,6 +26,9 @@ import { DetailsEmployeeComponent } from 'src/app/employee/detailsemployee/detai
 // Routing Module
 import { AppRoutingModule } from 'src/app/app.routing.module';
 
+// Number
+import { AllowDecimalNumberDirective } from 'src/app/shared/allow-decimal.directive';
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -37,6 +41,9 @@ import { AppRoutingModule } from 'src/app/app.routing.module';
         EmployeeComponent,
         AddEmployeeComponent,
         DetailsEmployeeComponent,
+
+        // Number
+        AllowDecimalNumberDirective
     ],
     imports: [
         BrowserModule,
@@ -63,7 +70,8 @@ import { AppRoutingModule } from 'src/app/app.routing.module';
         fakeBackendProvider,
 
         MatDatepickerModule,
-        MatNativeDateModule
+        MatNativeDateModule,
+        // CurrencyPipe
     ],
     bootstrap: [AppComponent]
 })
