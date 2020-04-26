@@ -55,6 +55,10 @@ export class DetailsEmployeeComponent implements OnInit {
         );
     }
 
+    ngOnDestroy() {
+        this.currentUserSubscription.unsubscribe();
+    }
+
     logout() {
         this.authenticationService.logout();
         this.router.navigate(['/login']);

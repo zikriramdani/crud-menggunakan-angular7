@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { Subscription, Observable } from 'rxjs';
 import { first, map, startWith } from 'rxjs/operators';
 
-import { User, Employee } from 'src/app/models';
+import { User } from 'src/app/models';
 import { AlertService, EmployeeService, AuthenticationService } from 'src/app/services';
 
 @Component({
@@ -20,9 +20,7 @@ export class AddEmployeeComponent implements OnInit {
 
     currentUser: User;
     currentUserSubscription: Subscription;
-    employees: Employee[] = [];
 
-    isLoading = true;
     emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
 
     myGroup = new FormControl();
@@ -65,7 +63,7 @@ export class AddEmployeeComponent implements OnInit {
             birthDate: ['', Validators.required],
             email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
             basicSalary: ['', Validators.required],
-            // myGroupControl: ['', Validators.required]
+            myGroupControl: new FormControl('')
         });
         this.resetForm();
 
@@ -114,7 +112,7 @@ export class AddEmployeeComponent implements OnInit {
             'birthDate': '',
             'email': '',
             'basicSalary': '',
-            // 'myGroupControl': ''
+            'myGroupControl': ''
         });
     }
 
