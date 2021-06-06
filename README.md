@@ -1,6 +1,6 @@
 # https://employee-management.netlify.app
 
-![result](https://github.com/zikriramdani/employee-managament/blob/main/screencapture-employee-management-netlify-app-2021-06-07-06_01_34.png)
+![result](https://github.com/zikriramdani/employee-managament/blob/master/screencapture-employee-management-netlify-app-2021-06-07-06_01_34.png)
 
 # Employee Management
 
